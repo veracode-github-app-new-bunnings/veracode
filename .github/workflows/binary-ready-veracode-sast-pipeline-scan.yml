@@ -1,6 +1,6 @@
 name: Binary Ready - Veracode Static Code Analysis
 
-run-name: Binary Ready - Static Code Analysis - ${{ github.event.client_payload.repository.name }}
+run-name: ${{ github.event.action == 'binary-ready-veracode-sast-pipeline-scan1' && Binary Ready - Static Code Analysis - ${{ github.event.client_payload.repository.name }} || Veracode Pipeline Scan Baseline Generation - ${{ github.event.client_payload.repository.name }}
 
 concurrency:
   group: ${{ github.event.client_payload.event_type }}-${{ github.event.client_payload.repository.name }}-${{ github.event.client_payload.branch }}
