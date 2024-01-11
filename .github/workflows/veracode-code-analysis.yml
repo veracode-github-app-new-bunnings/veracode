@@ -84,6 +84,10 @@ jobs:
     needs: build
     if: contains(github.event.action, 'pipeline')
     uses: ./.github/workflows/veracode-pipeline-scan.yml
+    with:
+      repository: ${{ github.repository }}
+      run_id: ${{ github.run_id }}
+      token: ${{ secrets.GITHUB_TOKEN }}
     secrets: inherit
 
   policy_scan:
