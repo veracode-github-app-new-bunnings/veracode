@@ -19,7 +19,7 @@ jobs:
     name: pipeline scan
 
     steps:
-      - name: Download artifact
+      - name: Download artifact V4 # for some reason, V4 cannot grab the artfiact in the current workflow.
         if: ${{ inputs.run_id != github.run_id }}
         id: download-artifact
         uses: actions/download-artifact@v4
@@ -30,7 +30,7 @@ jobs:
           name: veracode-artifact
           path: ./veracode-artifact
           
-      - name: Download artifact
+      - name: Download artifact V3
         if: ${{ inputs.run_id == github.run_id }}
         uses: actions/download-artifact@v3
         with:
