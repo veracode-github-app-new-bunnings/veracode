@@ -52,6 +52,7 @@ jobs:
         run-id: ${{ github.event.client_payload.run_id }}
         repository: ${{ github.event.client_payload.repository.full_name }}
         name: veracode-artifact
+        path: ./veracode-artifact
     - name: Get the name of the downloaded files
       run: |
         artifact_file=$(ls -1 ./veracode-artifact | head -n 1)
