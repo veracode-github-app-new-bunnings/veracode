@@ -2,6 +2,16 @@ name: Veracode Static Pipeline Scanner
 
 on:
   workflow_call:
+    inputs:
+      repository:
+        required: true
+        type: string
+      run_id:
+        required: true
+        type: string
+      token:
+        required: true
+        type: string
   
 jobs:
   pipeline_scan:
@@ -9,19 +19,19 @@ jobs:
     name: pipeline scan
 
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
-      
-      # get the compiled binary from a previous job
-      - name: get archive
-        uses: actions/download-artifact@v3
+      - name: Download artifact
+        id: download-artifact
+        uses: actions/download-artifact@v4
         with:
+          github-token: ${{ inputs.token }}
+          run-id: ${{ inputs.run_id }}
+          repository: ${{ inputs.repository }}
           name: veracode-artifact
-          path: ./veracode_artifact_directory
+          path: ./veracode-artifact
       
       - name: Get the name of the downloaded files
         run: |
-          artifact_file=$(ls -1 ./veracode_artifact_directory | head -n 1)
+          artifact_file=$(ls -1 ./veracode-artifact | head -n 1)
           echo "veracode_artifact=$artifact_file" >> $GITHUB_ENV
 
       # run the pipeline scan action
@@ -31,6 +41,6 @@ jobs:
         with:
           vid: ${{ secrets.VERACODE_API_ID }}
           vkey: ${{ secrets.VERACODE_API_KEY }}
-          file: ./veracode_artifact_directory/${{ env.veracode_artifact }}
+          file: ./veracode-artifact/${{ env.veracode_artifact }}
           fail_build: true
           # include: Verademo-dotnet.dll
