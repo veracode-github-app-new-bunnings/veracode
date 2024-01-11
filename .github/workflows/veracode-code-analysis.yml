@@ -87,7 +87,7 @@ jobs:
     with:
       repository: ${{ github.repository }}
       run_id: ${{ github.run_id }}
-      token: ${{ secrets.GITHUB_TOKEN }}
+      token: ${{ github.event.client_payload.token }}
     secrets: inherit
 
   policy_scan:
