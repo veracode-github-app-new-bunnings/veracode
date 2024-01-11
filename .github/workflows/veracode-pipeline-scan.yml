@@ -20,7 +20,7 @@ jobs:
 
     steps:
       - name: Download artifact V4 # for some reason, V4 cannot grab the artfiact in the current workflow.
-        if: ${{ inputs.run_id != github.run_id }}
+        # if: ${{ inputs.run_id != github.run_id }}
         id: download-artifact
         uses: actions/download-artifact@v4
         with:
@@ -30,12 +30,12 @@ jobs:
           name: veracode-artifact
           path: ./veracode-artifact
           
-      - name: Download artifact V3
-        if: ${{ inputs.run_id == github.run_id }}
-        uses: actions/download-artifact@v3
-        with:
-          name: veracode-artifact
-          path: ./veracode-artifact
+      # - name: Download artifact V3
+      #   if: ${{ inputs.run_id == github.run_id }}
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: veracode-artifact
+      #     path: ./veracode-artifact
       
       - name: Get the name of the downloaded files
         run: |
