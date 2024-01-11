@@ -35,7 +35,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: veracode-artifact
-          path: ./veracode_artifact
+          path: ./veracode-artifact
       
       - name: Get the name of the downloaded files
         run: |
