@@ -49,30 +49,3 @@ jobs:
       run_id: ${{ github.event.client_payload.run_id }}
       token: ${{ github.event.client_payload.token }}
     secrets: inherit
-        
-  # pipeline_scan:
-  #   needs: create-checks-run
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Download artifact
-  #     id: download-artifact
-  #     uses: actions/download-artifact@v4
-  #     with:
-  #       github-token: ${{ github.event.client_payload.token }}
-  #       run-id: ${{ github.event.client_payload.run_id }}
-  #       repository: ${{ github.event.client_payload.repository.full_name }}
-  #       name: veracode-artifact
-  #       path: ./veracode-artifact
-  #   - name: Get the name of the downloaded files
-  #     run: |
-  #       artifact_file=$(ls -1 ./veracode-artifact | head -n 1)
-  #       echo "veracode_artifact=$artifact_file" >> $GITHUB_ENV
-  #   - name: Veracode Pipeline-Scan
-  #     id: pipeline-scan
-  #     uses: veracode/Veracode-pipeline-scan-action@v1.0.10
-  #     with:
-  #       vid: ${{ secrets.VERACODE_API_ID }}
-  #       vkey: ${{ secrets.VERACODE_API_KEY }}
-  #       file: ./veracode-artifact/${{ env.veracode_artifact }}
-  #       fail_build: true
-  #       # include: bin/Verademo-dotnet.dll
