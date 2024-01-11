@@ -36,7 +36,7 @@ jobs:
       id: create_checks_run
       with:
         token: ${{ inputs.token }}
-        repo: ${{ inputs.repository }}
+        repo: ${{ inputs.owner }}/${{ inputs.repository }}
         sha: ${{ inputs.sha }}
         name: ${{ inputs.name }}
         status: 'in_progress'
