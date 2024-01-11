@@ -19,15 +19,20 @@ jobs:
     name: pipeline scan
 
     steps:
-      - name: Download artifact
-        id: download-artifact
-        uses: actions/download-artifact@v4
+      # - name: Download artifact
+      #   id: download-artifact
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     # github-token: ${{ inputs.token }}
+      #     # run-id: ${{ inputs.run_id }}
+      #     # repository: ${{ inputs.repository }}
+      #     name: veracode-artifact
+      #     path: ./veracode-artifact
+      - name: get archive
+        uses: actions/download-artifact@v3
         with:
-          # github-token: ${{ inputs.token }}
-          # run-id: ${{ inputs.run_id }}
-          # repository: ${{ inputs.repository }}
           name: veracode-artifact
-          path: ./veracode-artifact
+          path: ./veracode_artifact_directory
       
       - name: Get the name of the downloaded files
         run: |
