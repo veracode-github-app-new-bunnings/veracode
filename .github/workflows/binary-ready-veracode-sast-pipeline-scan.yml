@@ -22,7 +22,7 @@ jobs:
         token: ${{ github.event.client_payload.token }}
         repo: ${{ github.event.client_payload.repository.full_name }}
         sha: ${{ github.event.client_payload.sha }}
-        name: ${{ github.event.client_payload.event_trigger == 'binary-ready-veracode-sast-pipeline-scan' && 'Veracode Static Code Analysis' || 'Other Name' }}
+        name: ${{ github.event.action == 'binary-ready-veracode-sast-pipeline-scan' && 'Veracode Static Code Analysis' || 'Veracode Pipeline Scan Baseline File Generation' }}
         status: 'in_progress'
         details_url: "https://github.com/${{ github.event.client_payload.repository.owner }}/veracode/actions/runs/${{ github.run_id }}"
     - name: Create metadata
