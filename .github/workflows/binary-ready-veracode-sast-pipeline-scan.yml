@@ -41,7 +41,6 @@ jobs:
         path: workflow-metadata.json
 
   pipeline_scan:
-    # needs the build step before this job will start running
     needs: create-checks-run
     uses: ./.github/workflows/veracode-pipeline-scan.yml
     with:
