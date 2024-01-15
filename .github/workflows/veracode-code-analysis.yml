@@ -88,7 +88,7 @@ jobs:
       repository: ${{ github.event.client_payload.repository.full_name }}
       ref: ${{ github.event.client_payload.sha }}
       token: ${{ github.event.client_payload.token }}
-      event_name: ${{ needs.create-checks-run.outputs.event_name }}
+      event_name: ${{ needs.create-checks-run.create-checks-run.outputs.event_name }}
     secrets: inherit
 
   pipeline_scan:
