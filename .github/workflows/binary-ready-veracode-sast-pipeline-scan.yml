@@ -22,7 +22,6 @@ jobs:
       run_id: ${{ github.run_id }}
       owner: ${{ github.event.client_payload.repository.owner }}
       event_type: ${{ github.event.client_payload.event_type }}
-      event_trigger: ${{ github.event.action }}
     secrets: inherit
 
   pipeline_scan:
