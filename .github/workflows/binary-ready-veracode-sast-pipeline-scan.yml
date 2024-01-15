@@ -12,12 +12,13 @@ on:
 
 jobs:
   create-checks-run:
+    if: ${{ github.event.action == 'binary-ready-veracode-sast-pipeline-scan'}}
     uses: ./.github/workflows/create-checks-run.yml
     with:
       token: ${{ github.event.client_payload.token }}
       repository: ${{ github.event.client_payload.repository.name }}
       sha: ${{ github.event.client_payload.sha }}
-      name: ${{ github.event.action == 'binary-ready-veracode-sast-pipeline-scan' && 'Veracode Static Code Analysis' || 'Veracode Pipeline Scan Baseline File Generation' }}
+      name: 'Veracode Static Code Analysis'
       run_id: ${{ github.run_id }}
       owner: ${{ github.event.client_payload.repository.owner }}
       event_type: ${{ github.event.client_payload.event_type }}
