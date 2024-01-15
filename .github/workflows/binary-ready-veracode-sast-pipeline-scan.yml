@@ -8,7 +8,9 @@ concurrency:
 
 on:
   repository_dispatch:
-    types: [binary-ready-veracode-sast-pipeline-scan]
+    types:
+      - binary-ready-veracode-sast-pipeline-scan
+      - sast-pipeline-baseline-scan
 
 jobs:
   create-checks-run:
