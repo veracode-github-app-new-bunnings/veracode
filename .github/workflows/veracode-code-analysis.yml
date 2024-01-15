@@ -30,56 +30,44 @@ on:
 
 jobs:
   create-checks-run:
-    uses: ./.github/workflows/create-checks-run.yml
-    with:
-      token: ${{ github.event.client_payload.token }}
-      repository: ${{ github.event.client_payload.repository.name }}
-      sha: ${{ github.event.client_payload.sha }}
-      name: 'Veracode Static Code Analysis'
-      run_id: ${{ github.run_id }}
-      owner: ${{ github.event.client_payload.repository.owner }}
-      event_type: ${{ github.event.client_payload.event_type }}
-      event_trigger: ${{ github.event.action }}
-    secrets: inherit
-  # create-checks-run:
-  #   name: Create Checks Run
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     event_name: ${{ steps.extract_language_and_build.outputs.event_name }}
-  #   steps:
-  #     - uses: veracode/veracode-checks-action@main
-  #       name: Create Checks Run
-  #       id: create_checks_run
-  #       with:
-  #         token: ${{ github.event.client_payload.token }}
-  #         repo: ${{ github.event.client_payload.repository.full_name }}
-  #         sha: ${{ github.event.client_payload.sha }}
-  #         name: 'Veracode Static Code Analysis'
-  #         status: 'in_progress'
-  #         details_url: 'https://github.com/${{ github.event.client_payload.repository.owner }}/veracode/actions/runs/${{ github.run_id }}'
-  #     - name: Create metadata
-  #       id: create_metadata_json
-  #       run: |
-  #         echo '{
-  #           "check_run_type": "${{ github.event.client_payload.event_type }}",
-  #           "repository_name": "${{ github.event.client_payload.repository.name }}",
-  #           "check_run_id": ${{ steps.create_checks_run.outputs.check_id }},
-  #           "sha": "${{ github.event.client_payload.sha }}"
-  #         }' > workflow-metadata.json
-  #     - name: Save metadata
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: workflow-metadata
-  #         path: workflow-metadata.json
-  #     - name: Extract Language and Build
-  #       id: extract_language_and_build
-  #       run: |
-  #         echo "Extracting language and build information"
-  #         event_name=${{ github.event.action }}
-  #         event_name=${event_name%-*} # Remove -scan
-  #         event_name=${event_name%-*} # Remove one more time to get rid of the "-policy" or "-pipeline"
-  #         echo "Extracted Language: $event_name"
-  #         echo "event_name=$event_name" >> "$GITHUB_OUTPUT"
+    name: Create Checks Run
+    runs-on: ubuntu-latest
+    outputs:
+      event_name: ${{ steps.extract_language_and_build.outputs.event_name }}
+    steps:
+      - uses: veracode/veracode-checks-action@main
+        name: Create Checks Run
+        id: create_checks_run
+        with:
+          token: ${{ github.event.client_payload.token }}
+          repo: ${{ github.event.client_payload.repository.full_name }}
+          sha: ${{ github.event.client_payload.sha }}
+          name: 'Veracode Static Code Analysis'
+          status: 'in_progress'
+          details_url: 'https://github.com/${{ github.event.client_payload.repository.owner }}/veracode/actions/runs/${{ github.run_id }}'
+      - name: Create metadata
+        id: create_metadata_json
+        run: |
+          echo '{
+            "check_run_type": "${{ github.event.client_payload.event_type }}",
+            "repository_name": "${{ github.event.client_payload.repository.name }}",
+            "check_run_id": ${{ steps.create_checks_run.outputs.check_id }},
+            "sha": "${{ github.event.client_payload.sha }}"
+          }' > workflow-metadata.json
+      - name: Save metadata
+        uses: actions/upload-artifact@v3
+        with:
+          name: workflow-metadata
+          path: workflow-metadata.json
+      - name: Extract Language and Build
+        id: extract_language_and_build
+        run: |
+          echo "Extracting language and build information"
+          event_name=${{ github.event.action }}
+          event_name=${event_name%-*} # Remove -scan
+          event_name=${event_name%-*} # Remove one more time to get rid of the "-policy" or "-pipeline"
+          echo "Extracted Language: $event_name"
+          echo "event_name=$event_name" >> "$GITHUB_OUTPUT"
 
   build:
     needs: create-checks-run
@@ -88,7 +76,7 @@ jobs:
       repository: ${{ github.event.client_payload.repository.full_name }}
       ref: ${{ github.event.client_payload.sha }}
       token: ${{ github.event.client_payload.token }}
-      event_name: ${{ needs.create-checks-run.create-checks-run.outputs.event_name }}
+      event_name: ${{ needs.create-checks-run.outputs.event_name }}
     secrets: inherit
 
   pipeline_scan:
