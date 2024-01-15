@@ -52,5 +52,7 @@ jobs:
           file: ./veracode-artifact/${{ env.veracode_artifact }}
           fail_build: true
           veracode_policy_name: VeraDemo Policy
-          baseline_file: "veracode-pipeline-scan-baseline-file.json"
+          store_baseline_file: true
+          store_baseline_file_branch: my-featur-branch
+          create_baseline_from: standard
           # include: Verademo-dotnet.dll
