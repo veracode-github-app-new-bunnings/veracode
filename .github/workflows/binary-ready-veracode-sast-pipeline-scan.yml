@@ -27,7 +27,7 @@ jobs:
     secrets: inherit
 
   pipeline_scan:
-    needs: create-checks-run
+    # needs: create-checks-run
     uses: ./.github/workflows/veracode-pipeline-scan.yml
     with:
       repository: ${{ github.event.client_payload.repository.full_name }}
