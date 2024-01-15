@@ -17,7 +17,7 @@ jobs:
       token: ${{ github.event.client_payload.token }}
       repository: ${{ github.event.client_payload.repository.name }}
       sha: ${{ github.event.client_payload.sha }}
-      name: 'Veracode Static Code Analysis'
+      name: 'Veracode Component Analysis'
       run_id: ${{ github.run_id }}
       owner: ${{ github.event.client_payload.repository.owner }}
       event_type: ${{ github.event.client_payload.event_type }}
