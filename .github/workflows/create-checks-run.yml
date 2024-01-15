@@ -25,16 +25,11 @@ on:
       event_type:
         required: true
         type: string
-      event_trigger:
-        required: true
-        type: string
 
 jobs:
   create-checks-run:
     name: Create Checks Run
     runs-on: ubuntu-latest
-    outputs:
-      event_name: ${{ steps.extract_language_and_build.outputs.event_name }}
     steps:
     - uses: veracode/veracode-checks-action@main
       name: Create Checks Run
@@ -60,12 +55,3 @@ jobs:
       with:
         name: workflow-metadata
         path: workflow-metadata.json
-    - name: Extract Language and Build
-      id: extract_language_and_build
-      run: |
-        echo "Extracting language and build information"
-        event_name=${{ inputs.event_trigger }}
-        event_name=${event_name%-*} # Remove -scan
-        event_name=${event_name%-*} # Remove one more time to get rid of the "-policy" or "-pipeline"
-        echo "Extracted Language: $event_name"
-        echo "event_name=$event_name" >> "$GITHUB_OUTPUT"
