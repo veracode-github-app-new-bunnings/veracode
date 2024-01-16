@@ -15,6 +15,9 @@ on:
       profile_name:
         required: true
         type: string
+      check_run_id:
+        required: true
+        type: string
   
 jobs:
   pipeline_scan:
@@ -61,7 +64,7 @@ jobs:
         uses: vincent-deng/veracode-process-pipeline-results@main
         with:
           token: ${{ inputs.token }}
-          run_id: ${{ github.run_id }}
+          check_run_id: ${{ inputs.check_run_id }}
           vid: ${{ secrets.VERACODE_API_ID }}
           vkey: ${{ secrets.VERACODE_API_KEY }}
           appname: ${{ inputs.profile_name }}
