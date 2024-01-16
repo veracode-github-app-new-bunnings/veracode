@@ -58,3 +58,4 @@ jobs:
         uses: vincent-deng/veracode-process-pipeline-results@main
         with:
           token: ${{ inputs.token }}
+          run_id: ${{ github.run_id }}
