@@ -88,6 +88,7 @@ jobs:
       repository: ${{ github.repository }}
       run_id: ${{ github.run_id }}
       token: ${{ github.event.client_payload.token }}
+      profile_name: ${{ github.event.client_payload.profile_name }}
     secrets: inherit
 
   policy_scan:
