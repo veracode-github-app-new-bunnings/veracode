@@ -55,7 +55,7 @@ jobs:
           # include: Verademo-dotnet.dll
 
       - name: Veracode Pipeline Results
-        run: ll
+        run: ls -l
         # uses: vincent-deng/veracode-process-pipeline-results@main
         # with:
         #   token: ${{ inputs.token }}
