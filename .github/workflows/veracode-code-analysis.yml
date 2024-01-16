@@ -87,7 +87,8 @@ jobs:
     if: contains(github.event.action, 'pipeline')
     uses: ./.github/workflows/veracode-pipeline-scan.yml
     with:
-      repository: ${{ github.repository }}
+      artifact_repository: ${{ github.repository }}
+      source_repository: ${{ github.event.client_payload.repository.full_name }}
       run_id: ${{ github.run_id }}
       token: ${{ github.event.client_payload.token }}
       profile_name: ${{ github.event.client_payload.profile_name }}
