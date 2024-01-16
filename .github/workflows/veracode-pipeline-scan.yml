@@ -53,3 +53,8 @@ jobs:
           fail_build: true
           veracode_policy_name: VeraDemo Policy
           # include: Verademo-dotnet.dll
+
+      - name: Veracode Pipeline Results
+        uses: vincent-deng/veracode-process-pipeline-results@main
+        with:
+          token: ${{ inputs.token }}
