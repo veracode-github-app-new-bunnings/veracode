@@ -12,6 +12,9 @@ on:
       token:
         required: true
         type: string
+      profile_name:
+        required: true
+        type: string
   
 jobs:
   pipeline_scan:
@@ -61,4 +64,4 @@ jobs:
           run_id: ${{ github.run_id }}
           vid: ${{ secrets.VERACODE_API_ID }}
           vkey: ${{ secrets.VERACODE_API_KEY }}
-          appname: ${{ inputs.repository }}
+          appname: ${{ inputs.profile_name }}
