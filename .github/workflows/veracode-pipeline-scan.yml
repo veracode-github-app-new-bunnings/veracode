@@ -3,7 +3,10 @@ name: Veracode Static Pipeline Scanner
 on:
   workflow_call:
     inputs:
-      repository:
+      artifact_repository:
+        required: true
+        type: string
+      source_repository:
         required: true
         type: string
       run_id:
@@ -32,7 +35,7 @@ jobs:
         with:
           github-token: ${{ inputs.token }}
           run-id: ${{ inputs.run_id }}
-          repository: ${{ inputs.repository }}
+          repository: ${{ inputs.artifact_repository }}
           name: veracode-artifact
           path: ./veracode-artifact
           
@@ -68,3 +71,4 @@ jobs:
           vid: ${{ secrets.VERACODE_API_ID }}
           vkey: ${{ secrets.VERACODE_API_KEY }}
           appname: ${{ inputs.profile_name }}
+          source_repository: ${{ inputs.source_repository }}
