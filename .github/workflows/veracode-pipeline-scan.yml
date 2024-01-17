@@ -21,6 +21,9 @@ on:
       check_run_id:
         required: true
         type: string
+      event_trigger:
+        required: true
+        type: string
   
 jobs:
   pipeline_scan:
@@ -72,3 +75,4 @@ jobs:
           vkey: ${{ secrets.VERACODE_API_KEY }}
           appname: ${{ inputs.profile_name }}
           source_repository: ${{ inputs.source_repository }}
+          event_trigger: ${{ inputs.event_trigger }}
