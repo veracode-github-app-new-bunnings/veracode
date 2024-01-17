@@ -1,2 +1,2 @@
-scan_config_file_location: ".config/veracode.yml",
+scan_config_file_location: ".config/veracode.yml"
 process_pipeline_scan_results_in_action: true
