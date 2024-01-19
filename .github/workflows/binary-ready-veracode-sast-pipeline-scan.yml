@@ -46,10 +46,16 @@ jobs:
           path: workflow-metadata.json
 
   pipeline_scan:
-    # needs: create-checks-run
+    needs: create-checks-run
     uses: ./.github/workflows/veracode-pipeline-scan.yml
     with:
-      repository: ${{ github.event.client_payload.repository.full_name }}
-      run_id: ${{ github.event.client_payload.run_id }}
+      artifact_repository: ${{ github.event.client_payload.repository.full_name }}
+      source_repository: ${{ github.event.client_payload.repository.full_name }}
+      run_id: ${{ github.run_id }}
       token: ${{ github.event.client_payload.token }}
+      profile_name:  ${{ github.event.client_payload.repository.full_name }} # TBU
+      check_run_id: ${{ needs.create-checks-run.outputs.check_run_id }}
+      # repository: ${{ github.event.client_payload.repository.full_name }}
+      # run_id: ${{ github.event.client_payload.run_id }}
+      # token: ${{ github.event.client_payload.token }}
     secrets: inherit
