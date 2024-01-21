@@ -74,6 +74,7 @@ jobs:
       - name: Veracode Pipeline Results
         uses: vincent-deng/veracode-process-pipeline-results@main
         with:
+          action: 'preparePipelineResults'
           token: ${{ inputs.token }}
           check_run_id: ${{ inputs.check_run_id }}
           vid: ${{ secrets.VERACODE_API_ID }}
