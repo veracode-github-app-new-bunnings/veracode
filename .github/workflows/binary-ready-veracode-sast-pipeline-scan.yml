@@ -55,7 +55,4 @@ jobs:
       token: ${{ github.event.client_payload.token }}
       profile_name:  ${{ github.event.client_payload.repository.full_name }} # TBU
       check_run_id: ${{ needs.create-checks-run.outputs.check_run_id }}
-      # repository: ${{ github.event.client_payload.repository.full_name }}
-      # run_id: ${{ github.event.client_payload.run_id }}
-      # token: ${{ github.event.client_payload.token }}
     secrets: inherit
