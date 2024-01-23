@@ -75,5 +75,16 @@ jobs:
           #scanpollinginterval: 30
           scantimeout: 60
           include: ${{ inputs.moddules_to_scan }}
-          failbuild: true
+          failbuild: false
           #teams: "Team 7, Team 5, Team A"
+
+      - name: Veracode Policy Results
+        uses: vincent-deng/veracode-process-pipeline-results@main
+        with:
+          action: 'preparePolicyResults'
+          token: ${{ inputs.token }}
+          check_run_id: ${{ inputs.check_run_id }}
+          vid: ${{ secrets.VERACODE_API_ID }}
+          vkey: ${{ secrets.VERACODE_API_KEY }}
+          appname: ${{ inputs.profile_name }}
+          source_repository: ${{ inputs.source_repository }}
