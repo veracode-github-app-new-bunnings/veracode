@@ -96,10 +96,15 @@ jobs:
     secrets: inherit
 
   policy_scan:
-    needs: build
+    needs: [build, create-checks-run]
     if: contains(github.event.action, 'policy')
     uses: ./.github/workflows/veracode-policy-scan.yml
     with:
+      artifact_repository: ${{ github.repository }}
+      source_repository: ${{ github.event.client_payload.repository.full_name }}
+      run_id: ${{ github.run_id }}
+      token: ${{ github.event.client_payload.token }}
       profile_name: ${{ github.event.client_payload.profile_name }}
       moddules_to_scan: ${{ github.event.client_payload.modules_to_scan }}
+      check_run_id: ${{ needs.create-checks-run.outputs.check_run_id }}
     secrets: inherit
