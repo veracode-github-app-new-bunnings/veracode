@@ -70,6 +70,7 @@ jobs:
           policy: 'Verademo Policy'
           version: '${{ github.run_id }}'
           filepath: ./veracode-artifact/${{ env.veracode_artifact }}
+          deleteincompletescan: true
           vid: '${{ secrets.VERACODE_API_ID }}'
           vkey: '${{ secrets.VERACODE_API_KEY }}'
           #scanpollinginterval: 30
