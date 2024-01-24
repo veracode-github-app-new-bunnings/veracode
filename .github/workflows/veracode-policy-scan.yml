@@ -24,7 +24,7 @@ on:
       moddules_to_scan:
         required: true
         type: string
-      fail_checkson_on_policy:
+      fail_checks_on_policy:
         required: true
         type: boolean
       fail_checks_on_error:
@@ -96,5 +96,5 @@ jobs:
           appname: ${{ inputs.profile_name }}
           source_repository: ${{ inputs.source_repository }}
           fail_checks: ${{ inputs.fail_checks }}
-          fail_checkson_on_policy: ${{ inputs.fail_checkson_on_policy }}
+          fail_checks_on_policy: ${{ inputs.fail_checks_on_policy }}
           fail_checks_on_error: ${{ inputs.fail_checks_on_error }}
