@@ -21,7 +21,7 @@ on:
       check_run_id:
         required: true
         type: string
-      fail_checkson_on_policy:
+      fail_checks_on_policy:
         required: true
         type: boolean
       fail_checks_on_error:
@@ -87,5 +87,5 @@ jobs:
           vkey: ${{ secrets.VERACODE_API_KEY }}
           appname: ${{ inputs.profile_name }}
           source_repository: ${{ inputs.source_repository }}
-          fail_checkson_on_policy: ${{ inputs.fail_checkson_on_policy }}
+          fail_checks_on_policy: ${{ inputs.fail_checks_on_policy }}
           fail_checks_on_error: ${{ inputs.fail_checks_on_error }}
