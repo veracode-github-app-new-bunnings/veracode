@@ -21,6 +21,9 @@ on:
       check_run_id:
         required: true
         type: string
+      fail_checks:
+        required: true
+        type: boolean
   
 jobs:
   pipeline_scan:
@@ -81,3 +84,4 @@ jobs:
           vkey: ${{ secrets.VERACODE_API_KEY }}
           appname: ${{ inputs.profile_name }}
           source_repository: ${{ inputs.source_repository }}
+          fail_checks: ${{ inputs.fail_checks }}
