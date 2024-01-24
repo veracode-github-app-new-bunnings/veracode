@@ -42,32 +42,41 @@ jobs:
 
   policy_scan:
     needs: create-checks-run
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        id: download-artifact
-        uses: actions/download-artifact@v4
-        with:
-          github-token: ${{ github.event.client_payload.token }}
-          run-id: ${{ github.event.client_payload.run_id }}
-          repository: ${{ github.event.client_payload.repository.full_name }}
-          name: veracode-artifact
-          path: ./veracode-artifact
-      # - name: Get the name of the downloaded files
-      #   run: |
-      #     artifact_file=$(ls -1 ./veracode-artifact | head -n 1)
-      #     echo "veracode_artifact=$artifact_file" >> $GITHUB_ENV
-      - name: Veracode Upload and Scan Action Step
-        uses: veracode/uploadandscan-action@v0.1.0
-        id: upload_and_scan
-        with:
-          vid: '${{ secrets.VERACODE_API_ID }}'
-          vkey: '${{ secrets.VERACODE_API_KEY }}'
-          appname: ${{ github.event.client_payload.profile_name }}
-          createprofile: true
-          version: '${{ github.run_id }}'
-          filepath: ./veracode-artifact/*
-          include: ${{ github.event.client_payload.modules_to_scan }}
-          policy: VeraDemo Policy
-          scantimeout: 60
-          failbuild: true
+    uses: ./.github/workflows/veracode-policy-scan.yml
+    with:
+      artifact_repository: ${{ github.event.client_payload.repository.full_name }}
+      source_repository: ${{ github.event.client_payload.repository.full_name }}
+      run_id: ${{ github.event.client_payload.run_id }}
+      token: ${{ github.event.client_payload.token }}
+      profile_name:  ${{ github.event.client_payload.repository.full_name }} # TBU
+      check_run_id: ${{ needs.create-checks-run.outputs.check_run_id }}
+    secrets: inherit
+    # runs-on: ubuntu-latest
+    # steps:
+    #   - name: Download artifact
+    #     id: download-artifact
+    #     uses: actions/download-artifact@v4
+    #     with:
+    #       github-token: ${{ github.event.client_payload.token }}
+    #       run-id: ${{ github.event.client_payload.run_id }}
+    #       repository: ${{ github.event.client_payload.repository.full_name }}
+    #       name: veracode-artifact
+    #       path: ./veracode-artifact
+    #   # - name: Get the name of the downloaded files
+    #   #   run: |
+    #   #     artifact_file=$(ls -1 ./veracode-artifact | head -n 1)
+    #   #     echo "veracode_artifact=$artifact_file" >> $GITHUB_ENV
+    #   - name: Veracode Upload and Scan Action Step
+    #     uses: veracode/uploadandscan-action@v0.1.0
+    #     id: upload_and_scan
+    #     with:
+    #       vid: '${{ secrets.VERACODE_API_ID }}'
+    #       vkey: '${{ secrets.VERACODE_API_KEY }}'
+    #       appname: ${{ github.event.client_payload.profile_name }}
+    #       createprofile: true
+    #       version: '${{ github.run_id }}'
+    #       filepath: ./veracode-artifact/*
+    #       include: ${{ github.event.client_payload.modules_to_scan }}
+    #       policy: VeraDemo Policy
+    #       scantimeout: 60
+    #       failbuild: true
