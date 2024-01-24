@@ -57,7 +57,7 @@ jobs:
           artifact_file=$(ls -1 ./veracode-artifact | head -n 1)
           echo "veracode_artifact=$artifact_file" >> $GITHUB_ENV
       - name: Get Veracode Policy Name
-        uses: vincent-deng/veracode-process-pipeline-results@main
+        uses: veracode/workflow-app-helper@main
         id: get_policy_name
         with:
           action: 'getPolicyNameByProfileName'
@@ -78,7 +78,7 @@ jobs:
           # include: Verademo-dotnet.dll
 
       - name: Veracode Pipeline Results
-        uses: vincent-deng/veracode-process-pipeline-results@main
+        uses: veracode/workflow-app-helper@main
         with:
           action: 'preparePipelineResults'
           token: ${{ inputs.token }}
