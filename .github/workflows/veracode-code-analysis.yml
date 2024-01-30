@@ -39,7 +39,7 @@ on:
 
 jobs:
   create-checks-run:
-    if: contains(github.event.action, 'policy') || contains(github.event.action, 'pipeline')
+    # if: contains(github.event.action, 'policy') || contains(github.event.action, 'pipeline')
     name: Create Checks Run
     runs-on: ubuntu-latest
     outputs:
