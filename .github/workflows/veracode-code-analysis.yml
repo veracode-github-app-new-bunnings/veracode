@@ -10,23 +10,32 @@ on:
   repository_dispatch:
     types:
       - java-maven-pipeline-scan
+      - java-maven-policy-scan
+      - java-maven-sandbox-scan
       - java-gradle-pipeline-scan
+      - java-gradle-policy-scan
+      - java-gradle-sandbox-scan
       - source-code-pipeline-scan
+      - source-code-policy-scan
+      - source-code-sandbox-scan
       - dot-net-pipeline-scan
       - dot-net-policy-scan
-      - java-maven-policy-scan
-      - java-gradle-policy-scan
-      - source-code-policy-scan
+      - dot-net-sandbox-scan
       - go-policy-scan
       - go-pipeline-scan
+      - go-sandbox-scan
       - dart-policy-scan
       - dart-pipeline-scan
+      - dart-sandbox-scan
       - php-pipeline-scan
       - php-policy-scan
+      - php-sandbox-scan
       - tsql-pipeline-scan
       - tsql-policy-scan
+      - tsql-sandbox-scan
       - plsql-pipeline-scan
       - plsql-policy-scan
+      - plsql-sandbox-scan
 
 jobs:
   create-checks-run:
@@ -100,6 +109,22 @@ jobs:
   policy_scan:
     needs: [build, create-checks-run]
     if: contains(github.event.action, 'policy')
+    uses: ./.github/workflows/veracode-policy-scan.yml
+    with:
+      artifact_repository: ${{ github.repository }}
+      source_repository: ${{ github.event.client_payload.repository.full_name }}
+      run_id: ${{ github.run_id }}
+      token: ${{ github.event.client_payload.token }}
+      profile_name: ${{ github.event.client_payload.profile_name }}
+      moddules_to_scan: ${{ github.event.client_payload.modules_to_scan }}
+      check_run_id: ${{ needs.create-checks-run.outputs.check_run_id }}
+      fail_checks_on_policy: ${{ github.event.client_payload.fail_checks.fail_checks_on_policy }}
+      fail_checks_on_error: ${{ github.event.client_payload.fail_checks.fail_checks_on_error }}
+    secrets: inherit
+
+  sandbox_scan:
+    needs: [build, create-checks-run]
+    if: contains(github.event.action, 'sandbox')
     uses: ./.github/workflows/veracode-policy-scan.yml
     with:
       artifact_repository: ${{ github.repository }}
