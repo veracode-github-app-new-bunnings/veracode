@@ -39,6 +39,7 @@ on:
 
 jobs:
   create-checks-run:
+    if: contains(github.event.action, 'policy') || contains(github.event.action, 'pipeline')
     name: Create Checks Run
     runs-on: ubuntu-latest
     outputs:
@@ -121,5 +122,5 @@ jobs:
       fail_checks_on_policy: ${{ github.event.client_payload.fail_checks.fail_checks_on_policy }}
       fail_checks_on_error: ${{ github.event.client_payload.fail_checks.fail_checks_on_error }}
       createsandbox: ${{ contains(github.event.action, 'sandbox') }}
-      sandbox_name: GitHub App Scans-${{ github.event.client_payload.branch }}
+      sandboxname: GitHub App Scans-${{ github.event.client_payload.branch }}
     secrets: inherit
