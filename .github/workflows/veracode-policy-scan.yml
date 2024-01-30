@@ -30,6 +30,13 @@ on:
       fail_checks_on_error:
         required: true
         type: boolean
+      createsandbox:
+        required: true
+        type: boolean
+      sandboxname:
+        required: true
+        type: string
+        default: false
 
 jobs:
   policy_scan:
@@ -84,8 +91,11 @@ jobs:
           include: ${{ inputs.moddules_to_scan }}
           failbuild: false
           #teams: "Team 7, Team 5, Team A"
+          createsandbox: ${{ inputs.createsandbox }}
+          sandboxname: ${{ inputs.sandboxname }}
 
       - name: Veracode Policy Results
+        if: ${{ inputs.createsandbox == false }}
         uses: veracode/workflow-app-helper@main
         with:
           action: 'preparePolicyResults'
