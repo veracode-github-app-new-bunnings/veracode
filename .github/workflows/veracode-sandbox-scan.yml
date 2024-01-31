@@ -65,4 +65,5 @@ jobs:
           vkey: '${{ secrets.API_KEY }}'
           createsandbox: true
           sandboxname: GitHub App Scans-${{ inputs.branch }}
+          deleteincompletescan: true
           include: ${{ inputs.moddules_to_scan }}
