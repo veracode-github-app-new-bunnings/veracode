@@ -1,0 +1,25 @@
+name: Veracode - Remove Sandbox When Pr Closed or Branch Deleted
+
+run-name: Veracode - Remove Sandbox When Pr Closed or Branch Deleted - ${{ github.event.client_payload.repository.name }}
+
+concurrency:
+  group: ${{ github.event.client_payload.event_type }}-${{ github.event.client_payload.repository.name }}-${{ github.event.client_payload.branch }}
+  cancel-in-progress: true
+
+on:
+  repository_dispatch:
+    types: [veracode-remove-sandbox]
+    
+jobs:
+  veracode-remove-sandbox:
+    runs-on: ubuntu-latest
+    name: Remove Sandbox
+    steps:
+      - uses: veracode/workflow-app-helper@main
+        with:
+          action: 'removeSandbox'
+          vid: ${{ secrets.VERACODE_API_ID }}
+          vkey: ${{ secrets.VERACODE_API_KEY }}
+          appname: ${{ inputs.profile_name }}
+          sandboxname: GitHub App Scans-${{ github.event.client_payload.branch }}
+          
