@@ -30,6 +30,7 @@ jobs:
         name: workflow-metadata
         path: workflow-metadata.json
   veracode-remove-sandbox:
+    needs: create-checks-run
     runs-on: ubuntu-latest
     name: Remove Sandbox
     steps:
