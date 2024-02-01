@@ -4,13 +4,13 @@ veracode_sast_pipeline_scan:
   # Leaving them both false means this will never run
   push:
     trigger: false
-    run_sandbox_scan_in_parallel: true
+    run_sandbox_scan_in_parallel: false
     branches_to_run:
     branches_to_exclude:
       - default_branch
   pull_request:
     trigger: true
-    run_sandbox_scan_in_parallel: true
+    run_sandbox_scan_in_parallel: false
     action:
       - opened
       - synchronize
@@ -18,7 +18,7 @@ veracode_sast_pipeline_scan:
       - default_branch 
   issue:
     trigger: true
-    run_sandbox_scan_in_parallel: true
+    run_sandbox_scan_in_parallel: false
     commands: 
       - "Veracode Pipeline Scan"
   #If the break_build_policy_findings is set to true, the build will break if the pipeline scan finds any policy violations.      
