@@ -22,7 +22,7 @@ jobs:
           token: ${{ github.event.client_payload.token }}
           repo: ${{ github.event.client_payload.repository.full_name }}
           sha: ${{ github.event.client_payload.sha }}
-          name: 'Veracode Static Code Analysis'
+          name: 'Veracode Component Analysis'
           status: 'in_progress'
           details_url: 'https://github.com/${{ github.event.client_payload.repository.owner }}/veracode/actions/runs/${{ github.run_id }}'
       - name: Create metadata
