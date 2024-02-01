@@ -68,7 +68,7 @@ jobs:
           echo '{
             "check_run_type": "${{ github.event.client_payload.event_type }}",
             "repository_name": "${{ github.event.client_payload.repository.name }}",
-            "check_run_id": "${check_run_id}",
+            "check_run_id": ${check_run_id},
             "sha": "${{ github.event.client_payload.sha }}"
           }' > workflow-metadata.json
       
