@@ -71,7 +71,6 @@ jobs:
             "check_run_id": "'"$check_run_id"'",
             "sha": "${{ github.event.client_payload.sha }}"
           }' > workflow-metadata.json
-      
           echo "check_run_id=${check_run_id}" >> "$GITHUB_OUTPUT"
       - name: Save metadata
         uses: actions/upload-artifact@v3
