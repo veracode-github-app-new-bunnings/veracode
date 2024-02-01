@@ -1,6 +1,6 @@
 name: Veracode - Remove Sandbox When Pr Closed or Branch Deleted
 
-run-name: Remove Sandbox - ${{ github.event.client_payload.repository.name }} - ${{ github.event.client_payload.branch }}
+run-name: Remove Veracode Sandbox - Profile ${{ github.event.client_payload.repository.name }} - Sandbox ${{ github.event.client_payload.branch }}
 
 concurrency:
   group: ${{ github.event.client_payload.event_type }}-${{ github.event.client_payload.repository.name }}-${{ github.event.client_payload.branch }}
