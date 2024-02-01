@@ -62,7 +62,7 @@ jobs:
           echo '{
             "check_run_type": "${{ github.event.client_payload.event_type }}",
             "repository_name": "${{ github.event.client_payload.repository.name }}",
-            "check_run_id": ${{ if ne(steps.create_checks_run.outputs.check_id, '') }}${{ steps.create_checks_run.outputs.check_id }}{{ else }}''{{ endif }},
+            "check_run_id": ${{ steps.create_checks_run.outputs.check_id || '' }}
             "sha": "${{ github.event.client_payload.sha }}"
           }' > workflow-metadata.json
           echo "check_run_id=${{ steps.create_checks_run.outputs.check_id }}" >> "$GITHUB_OUTPUT"
