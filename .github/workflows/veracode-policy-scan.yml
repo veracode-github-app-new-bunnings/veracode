@@ -30,13 +30,6 @@ on:
       fail_checks_on_error:
         required: true
         type: boolean
-      # createsandbox:
-      #   required: true
-      #   type: boolean
-      # sandboxname:
-      #   required: true
-      #   type: string
-      #   default: false
 
 jobs:
   policy_scan:
@@ -62,20 +55,13 @@ jobs:
           name: veracode-artifact
           path: ./veracode-artifact
 
-      # # get the compiled binary from a previous job
-      # - name: get archive
-      #   uses: actions/download-artifact@v3
-      #   with:
-      #     name: veracode-artifact
-      #     path: ./veracode_artifact_directory
-
       - name: Get the name of the downloaded files
         run: |
           artifact_file=$(ls -1 ./veracode-artifact | head -n 1)
           echo "veracode_artifact=$artifact_file" >> $GITHUB_ENV
       # run the policy scan action
       - name: Veracode Upload and Scan Action Step
-        uses: veracode/uploadandscan-action@vsdeng-sandbox-debug
+        uses: veracode/uploadandscan-action@main
         id: upload_and_scan
         with:
           appname: ${{ inputs.profile_name }}
@@ -95,7 +81,6 @@ jobs:
           # sandboxname: ${{ inputs.sandboxname }}
 
       - name: Veracode Policy Results
-        if: ${{ inputs.createsandbox == false }}
         uses: veracode/workflow-app-helper@main
         with:
           action: 'preparePolicyResults'
