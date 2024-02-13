@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Remove Sandbox
     steps:
-      - uses: veracode/workflow-app-helper@main
+      - uses: veracode/workflow-app-helper@removeSandbox
         with:
           action: 'removeSandbox'
           vid: ${{ secrets.VERACODE_API_ID }}
