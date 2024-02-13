@@ -1,0 +1,13 @@
+name: Cron Hello World
+
+# The 'schedule' event triggers the workflow on a cron schedule
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Runs at 02:00 UTC (1 PM AEDT)
+
+jobs:
+  print-hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: echo "Hello world!"
