@@ -111,6 +111,9 @@ jobs:
       check_run_id: ${{ needs.create-checks-run.outputs.check_run_id }}
       fail_checks_on_policy: ${{ github.event.client_payload.fail_checks.fail_checks_on_policy }}
       fail_checks_on_error: ${{ github.event.client_payload.fail_checks.fail_checks_on_error }}
+      sha: ${{ github.event.client_payload.sha }}
+      soure_repo_owner: ${{ github.event.client_payload.repository.owner }}
+      soure_repo_name: ${{ github.event.client_payload.repository.name }}
     secrets: inherit
 
   policy_scan:
