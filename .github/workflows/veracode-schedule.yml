@@ -3,7 +3,8 @@ name: Cron Hello World
 # The 'schedule' event triggers the workflow on a cron schedule
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Runs at 02:00 UTC (1 PM AEDT)
+    - cron: '54 2 * * *'  # Runs at 02:00 UTC (1 PM AEDT)
+  workflow_dispatch:
 
 jobs:
   print-hello-world:
