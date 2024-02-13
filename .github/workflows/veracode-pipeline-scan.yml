@@ -27,6 +27,15 @@ on:
       fail_checks_on_error:
         required: true
         type: boolean
+      sha:
+        required: true
+        type: string
+      soure_repo_owner:
+        required: true
+        type: string
+      soure_repo_name:
+        required: true
+        type: string
   
 jobs:
   pipeline_scan:
@@ -76,8 +85,21 @@ jobs:
           fail_build: false
           veracode_policy_name: ${{ steps.get_policy_name.outputs.policy_name }}
           # include: Verademo-dotnet.dll
-
+      - name: Convert pipeline scan output to SARIF format
+        if: always()
+        id: convert
+        uses: Veracode/veracode-pipeline-scan-results-to-sarif@addWorkflowAppSupport
+        with:
+          pipeline-results-json: filtered_results.json
+          output-results-sarif: veracode-results.sarif
+          repo_owner: ${{ inputs.soure_repo_owner }}
+          repo_name: ${{ inputs.soure_repo_name }}
+          commitSHA: ${{ inputs.sha }}
+          ref: 'refs/heads/myBranch'
+          githubToken: ${{ inputs.token }}
+          
       - name: Veracode Pipeline Results
+        if: always()
         uses: veracode/workflow-app-helper@main
         with:
           action: 'preparePipelineResults'
