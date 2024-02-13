@@ -95,7 +95,7 @@ jobs:
           repo_owner: ${{ inputs.soure_repo_owner }}
           repo_name: ${{ inputs.soure_repo_name }}
           commitSHA: ${{ inputs.sha }}
-          ref: 'refs/heads/vincent-deng-patch-2'
+          ref: 'refs/heads/vincent-deng-patch-1'
           githubToken: ${{ inputs.token }}
           
       - name: Veracode Pipeline Results
