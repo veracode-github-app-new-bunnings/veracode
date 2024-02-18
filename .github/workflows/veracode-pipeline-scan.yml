@@ -100,7 +100,7 @@ jobs:
           
       - name: Veracode Pipeline Results
         if: always()
-        uses: veracode/workflow-app-helper@main
+        uses: veracode/workflow-app-helper@filter-mitigated-flaws
         with:
           action: 'preparePipelineResults'
           token: ${{ inputs.token }}
