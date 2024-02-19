@@ -1,2 +1,3 @@
 scan_config_file_location: ".config/veracode.yml"
 process_scan_results_in_action: true
+veracode_sandbox_scan_workflow: true
