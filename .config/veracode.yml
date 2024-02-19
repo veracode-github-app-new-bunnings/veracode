@@ -3,7 +3,7 @@ veracode_sast_pipeline_scan:
   # pull request event. Specifying both will only execute push event.
   # Leaving them both false means this will never run
   push:
-    trigger: true
+    trigger: false
     run_sandbox_scan_in_parallel: false
     branches_to_run:
     branches_to_exclude:
