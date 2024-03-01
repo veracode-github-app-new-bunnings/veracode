@@ -111,3 +111,4 @@ jobs:
           source_repository: ${{ inputs.source_repository }}
           fail_checks_on_policy: ${{ inputs.fail_checks_on_policy }}
           fail_checks_on_error: ${{ inputs.fail_checks_on_error }}
+          filter_mitigated_flaws: true
