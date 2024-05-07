@@ -91,23 +91,9 @@ jobs:
           #teams: "Team 7, Team 5, Team A"
           # createsandbox: ${{ inputs.createsandbox }}
           # sandboxname: ${{ inputs.sandboxname }}
-
-      # - name: Veracode Policy Results
-      #   uses: veracode/workflow-app-helper@main
-      #   with:
-      #     action: 'preparePolicyResults'
-      #     token: ${{ inputs.token }}
-      #     check_run_id: ${{ inputs.check_run_id }}
-      #     vid: ${{ secrets.VERACODE_API_ID }}
-      #     vkey: ${{ secrets.VERACODE_API_KEY }}
-      #     appname: ${{ inputs.profile_name }}
-      #     deleteincompletescan: true
-      #     source_repository: ${{ inputs.source_repository }}
-      #     fail_checks_on_policy: ${{ inputs.fail_checks_on_policy }}
-      #     fail_checks_on_error: ${{ inputs.fail_checks_on_error }}
-
+          
       - name: Create flaws as issues for java language
-        if: ${{ inputs.language == 'Java' }}
+        if: ${{ inputs.language contains 'java' }} 
         uses: veracode/veracode-flaws-to-issues@v2.2.24
         with:
           scan-results-json: 'policy_flaws.json'
@@ -119,7 +105,7 @@ jobs:
           source_base_path_2: 'WEB-INF:src/main/webapp/WEB-INF'
 
       - name: Create flaws as issues for non java language
-        if: ${{ inputs.language != 'Java' }}
+        if: ${{ !inputs.language contains 'java' }} 
         uses: veracode/veracode-flaws-to-issues@v2.2.24
         with:
           scan-results-json: 'policy_flaws.json'
@@ -127,3 +113,18 @@ jobs:
           repo_name: ${{ inputs.repo }}
           github-token: ${{ inputs.token }}
           commitHash: ${{ inputs.sha }}
+
+      - name: Veracode Policy Results
+        uses: veracode/workflow-app-helper@main
+        with:
+          action: 'preparePolicyResults'
+          token: ${{ inputs.token }}
+          check_run_id: ${{ inputs.check_run_id }}
+          vid: ${{ secrets.VERACODE_API_ID }}
+          vkey: ${{ secrets.VERACODE_API_KEY }}
+          appname: ${{ inputs.profile_name }}
+          source_repository: ${{ inputs.source_repository }}
+          fail_checks_on_policy: ${{ inputs.fail_checks_on_policy }}
+          fail_checks_on_error: ${{ inputs.fail_checks_on_error }}
+
+      
