@@ -39,6 +39,9 @@ on:
       sha:
         required: true
         type: string
+      language:
+        required: true
+        type: string
 
 jobs:
   policy_scan:
@@ -104,8 +107,8 @@ jobs:
       #     fail_checks_on_error: ${{ inputs.fail_checks_on_error }}
 
       - name: Create flaws as issues for java language
+        if: ${{ inputs.language == 'Java' }}
         uses: veracode/veracode-flaws-to-issues@v2.2.24
-        if: always()
         with:
           scan-results-json: 'policy_flaws.json'
           repo_owner: ${{ inputs.owner }}
@@ -114,3 +117,13 @@ jobs:
           commitHash: ${{ inputs.sha }}
           source_base_path_1: 'com/:src/main/java/com/'
           source_base_path_2: 'WEB-INF:src/main/webapp/WEB-INF'
+
+      - name: Create flaws as issues for non java language
+        if: ${{ inputs.language != 'Java' }}
+        uses: veracode/veracode-flaws-to-issues@v2.2.24
+        with:
+          scan-results-json: 'policy_flaws.json'
+          repo_owner: ${{ inputs.owner }}
+          repo_name: ${{ inputs.repo }}
+          github-token: ${{ inputs.token }}
+          commitHash: ${{ inputs.sha }}
