@@ -114,6 +114,7 @@ jobs:
       sha: ${{ github.event.client_payload.sha }}
       soure_repo_owner: ${{ github.event.client_payload.repository.owner }}
       soure_repo_name: ${{ github.event.client_payload.repository.name }}
+      language: ${{ github.event.action }}
     secrets: inherit
 
   policy_scan:
