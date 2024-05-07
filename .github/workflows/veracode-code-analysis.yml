@@ -133,6 +133,7 @@ jobs:
       owner: ${{ github.event.client_payload.repository.owner }}
       repo: ${{ github.event.client_payload.repository.name }}
       sha: ${{ github.event.client_payload.sha }}
+      language: ${{ github.event.action }}
     secrets: inherit
     
   sandbox_scan:
