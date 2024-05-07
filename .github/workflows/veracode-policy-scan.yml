@@ -93,7 +93,7 @@ jobs:
           # sandboxname: ${{ inputs.sandboxname }}
           
       - name: Create flaws as issues for java language
-        if: ${{ inputs.language.indexOf('java') != -1 }} 
+        if: "contains(inputs.language, 'java')"
         uses: veracode/veracode-flaws-to-issues@v2.2.24
         with:
           scan-results-json: 'policy_flaws.json'
@@ -105,7 +105,7 @@ jobs:
           source_base_path_2: 'WEB-INF:src/main/webapp/WEB-INF'
 
       - name: Create flaws as issues for non java language
-        if: ${{ inputs.language.indexOf('java') == -1 }} 
+        if: "!(contains(inputs.language, 'java'))" 
         uses: veracode/veracode-flaws-to-issues@v2.2.24
         with:
           scan-results-json: 'policy_flaws.json'
