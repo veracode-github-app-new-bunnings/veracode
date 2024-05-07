@@ -89,19 +89,19 @@ jobs:
           # createsandbox: ${{ inputs.createsandbox }}
           # sandboxname: ${{ inputs.sandboxname }}
 
-      - name: Veracode Policy Results
-        uses: veracode/workflow-app-helper@main
-        with:
-          action: 'preparePolicyResults'
-          token: ${{ inputs.token }}
-          check_run_id: ${{ inputs.check_run_id }}
-          vid: ${{ secrets.VERACODE_API_ID }}
-          vkey: ${{ secrets.VERACODE_API_KEY }}
-          appname: ${{ inputs.profile_name }}
-          deleteincompletescan: true
-          source_repository: ${{ inputs.source_repository }}
-          fail_checks_on_policy: ${{ inputs.fail_checks_on_policy }}
-          fail_checks_on_error: ${{ inputs.fail_checks_on_error }}
+      # - name: Veracode Policy Results
+      #   uses: veracode/workflow-app-helper@main
+      #   with:
+      #     action: 'preparePolicyResults'
+      #     token: ${{ inputs.token }}
+      #     check_run_id: ${{ inputs.check_run_id }}
+      #     vid: ${{ secrets.VERACODE_API_ID }}
+      #     vkey: ${{ secrets.VERACODE_API_KEY }}
+      #     appname: ${{ inputs.profile_name }}
+      #     deleteincompletescan: true
+      #     source_repository: ${{ inputs.source_repository }}
+      #     fail_checks_on_policy: ${{ inputs.fail_checks_on_policy }}
+      #     fail_checks_on_error: ${{ inputs.fail_checks_on_error }}
 
       - name: Create flaws as issues for java language
         uses: veracode/veracode-flaws-to-issues@v2.2.24
