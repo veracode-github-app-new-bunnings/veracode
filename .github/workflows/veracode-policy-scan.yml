@@ -30,6 +30,15 @@ on:
       fail_checks_on_error:
         required: true
         type: boolean
+      owner:
+        required: true
+        type: string
+      repo:
+        required: true
+        type: string
+      sha:
+        required: true
+        type: string
 
 jobs:
   policy_scan:
@@ -75,7 +84,7 @@ jobs:
           #scanpollinginterval: 30
           scantimeout: 60
           include: ${{ inputs.moddules_to_scan }}
-          failbuild: false
+          failbuild: true
           #teams: "Team 7, Team 5, Team A"
           # createsandbox: ${{ inputs.createsandbox }}
           # sandboxname: ${{ inputs.sandboxname }}
@@ -93,3 +102,14 @@ jobs:
           source_repository: ${{ inputs.source_repository }}
           fail_checks_on_policy: ${{ inputs.fail_checks_on_policy }}
           fail_checks_on_error: ${{ inputs.fail_checks_on_error }}
+
+      - name: Create flaws as issues for java language
+        uses: veracode/veracode-flaws-to-issues@v2.2.24
+        with:
+          scan-results-json: 'policy_flaws.json'
+          repo_owner: ${{ inputs.owner }}
+          repo_name: ${{ inputs.repo }}
+          github-token: ${{ inputs.token }}
+          commitHash: ${{ inputs.sha }}
+          source_base_path_1: 'com/:src/main/java/com/'
+          source_base_path_2: 'WEB-INF:src/main/webapp/WEB-INF'
