@@ -161,3 +161,18 @@ jobs:
           sandboxname: GitHub App Scans
           deleteincompletescan: true
           include: ${{ inputs.moddules_to_scan }}
+          scantimeout: 60
+          fail_build: false
+
+      - name: Veracode Policy Results
+        uses: veracode/workflow-app-helper@main
+        with:
+          action: 'preparePolicyResults'
+          token: ${{ inputs.token }}
+          check_run_id: ${{ inputs.check_run_id }}
+          vid: ${{ secrets.VERACODE_API_ID }}
+          vkey: ${{ secrets.VERACODE_API_KEY }}
+          appname: ${{ inputs.profile_name }}
+          source_repository: ${{ inputs.source_repository }}
+          fail_checks_on_policy: ${{ inputs.fail_checks_on_policy }}
+          fail_checks_on_error: ${{ inputs.fail_checks_on_error }}
